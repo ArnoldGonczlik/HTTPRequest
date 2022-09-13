@@ -16,7 +16,7 @@ public class HTTPClient {
 
         int c;
         while ((c = socket.getInputStream().read()) != -1){
-            System.out.print((char)c);
+            //System.out.print((char)c);
             response += (char)c;
         }
     }
@@ -29,5 +29,9 @@ public class HTTPClient {
     }
 
     public static void main(String[] args) throws IOException {
+    }
+
+    public String getHeader(String header) {
+        return "Bullshit";
     }
 }

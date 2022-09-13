@@ -17,4 +17,10 @@ public class HTTPClientTest {
         HTTPClient client = new HTTPClient("httpbin.org", 80, "/thisisdefinitelynotapath");
         assertEquals(404, client.getStatusCode());
     }
+
+    @Test
+    void shouldReadResponseHeaders() throws IOException {
+        HTTPClient client = new HTTPClient("httpbin.org", 80, "/html");
+        assertEquals("text/html; charset=utf-8", client.getHeader("Content-Type"));
+    }
 }
