@@ -18,6 +18,7 @@ public class HTTPClient {
         while ((c = socket.getInputStream().read()) != -1){
             //System.out.print((char)c);
             response += (char)c;
+
         }
     }
 
