@@ -11,4 +11,10 @@ public class HTTPClientTest {
         HTTPClient client = new HTTPClient("httpbin.org", 80, "/html");
         assertEquals(200, client.getStatusCode());
     }
+
+    @Test
+    void shouldGetNotFoundResponseCode() throws IOException {
+        HTTPClient client = new HTTPClient("httpbin.org", 80, "/thisisdefinitelynotapath");
+        assertEquals(404, client.getStatusCode());
+    }
 }
