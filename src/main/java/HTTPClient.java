@@ -17,7 +17,7 @@ public class HTTPClient {
 
         int c;
         while ((c = socket.getInputStream().read()) != -1){
-            //System.out.print((char)c);
+            System.out.print((char)c);
             response += (char)c;
         }
     }
@@ -29,8 +29,12 @@ public class HTTPClient {
         return Integer.parseInt(responseCode);
     }
 
+    public String getHTML() {
+        return response.split("\\r\\n\\r\\n")[1];
+    }
+
     public String getResponseHeader(String header) {
-        String allHeaders = response.split("<!DOCTYPE html>")[0];
+        String allHeaders = response.split("\\r\\n\\r\\n")[0];
 
         for (String line: allHeaders.split("\\r\\n")
              ) {
