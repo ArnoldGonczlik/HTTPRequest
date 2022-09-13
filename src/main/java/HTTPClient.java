@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Locale;
 
 public class HTTPClient {
 
@@ -28,10 +29,15 @@ public class HTTPClient {
         return Integer.parseInt(responseCode);
     }
 
-    public static void main(String[] args) throws IOException {
-    }
+    public String getResponseHeader(String header) {
+        String allHeaders = response.split("<!DOCTYPE html>")[0];
 
-    public String getHeader(String header) {
-        return "Bullshit";
+        for (String line: allHeaders.split("\\r\\n")
+             ) {
+            if (line.split(": ?")[0].toLowerCase(Locale.ROOT).equals(header.toLowerCase(Locale.ROOT))) {
+                return line.split(": ?")[1];
+            }
+        }
+        throw new RuntimeException("Header not found");
     }
 }
