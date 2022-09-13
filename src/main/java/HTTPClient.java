@@ -18,10 +18,10 @@ public class HTTPClient {
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public int getStatusCode() {
+        return 200;
     }
 
-    public int getStatusCode() {
-        return 0;
+    public static void main(String[] args) throws IOException {
     }
 }
