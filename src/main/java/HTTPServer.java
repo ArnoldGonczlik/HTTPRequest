@@ -26,7 +26,7 @@ public class HTTPServer {
                         "\r\n" + // A newline separates the headers from the content body
                         "Hello World! \r\n").getBytes());
                 // body should be the same number of bytes as the content-length header
-
+                //socket.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

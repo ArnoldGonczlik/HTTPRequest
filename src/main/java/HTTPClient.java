@@ -1,5 +1,7 @@
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
 public class HTTPClient {
@@ -14,6 +16,10 @@ public class HTTPClient {
                         "Connection: close\r\n" +
                         "\r\n";
         socket.getOutputStream().write(request.getBytes());
+        
+        String response = getHeaders(socket);
+
+        var test = socket.getInputStream().read();
 
         int c;
         while ((c = socket.getInputStream().read()) != -1){
@@ -21,6 +27,17 @@ public class HTTPClient {
             response += (char)c;
         }
         System.out.println("Done writing");
+    }
+
+    private static String getHeaders(Socket socket) throws IOException {
+        ByteArrayInputStream buffer = new ByteArrayInputStream(socket.getInputStream().readAllBytes());
+        int c;
+        String s = buffer.toString(StandardCharsets.UTF_8);
+        while ((c = socket.getInputStream().read()) != '\r')) {
+            buffer
+        }
+
+        return "";
     }
 
     public int getStatusCode() {
