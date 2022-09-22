@@ -20,6 +20,7 @@ public class HTTPClient {
             System.out.print((char)c);
             response += (char)c;
         }
+        System.out.println("Done writing");
     }
 
     public int getStatusCode() {
