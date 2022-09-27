@@ -11,7 +11,7 @@ public class HTTPServer {
         start();
     }
 
-    private void start() throws IOException {
+    private void start() {
         new Thread(() -> {
             try {
                 Socket socket = serverSocket.accept();
@@ -32,6 +32,4 @@ public class HTTPServer {
             }
         }).start();
     }
-
-
 }
