@@ -10,8 +10,10 @@ public class HTTPClient {
 
     String allHeaders;
 
+    Socket socket;
+
     public HTTPClient(String hostname, int port, String path) throws IOException {
-        Socket socket = new Socket(hostname, port);
+        socket = new Socket(hostname, port);
         String request =
                         "GET " + path + " HTTP/1.1\r\n" +
                         "Host: " + hostname + "\r\n" +
@@ -26,6 +28,7 @@ public class HTTPClient {
 
         var test = getOnlyHeaders(allHeaders);
 
+        System.out.println(getBody(socket));
         //Split entire text into header and body
         //allHeaders = new String(buffer.readAllBytes(), StandardCharsets.UTF_8).split("\\r\\n\\r\\n")[0];
 
@@ -67,6 +70,10 @@ public class HTTPClient {
         return headerStore;
     }
 
+    public String getBody() throws IOException {
+        return getBody(socket);
+    }
+
     public String getSpecificHeader(String specifiedHeader) {
         var headerStore = getOnlyHeaders(allHeaders);
 
@@ -84,19 +91,20 @@ public class HTTPClient {
         return Integer.parseInt(responseCode);
     }
 
-    public String getHTML() {
-        return response.split("\\r\\n\\r\\n")[1];
-    }
+    public String getBody(Socket socket) throws IOException {
+        int contentLength = Integer.parseInt(getSpecificHeader("Content-Length"));
 
-    public String getResponseHeader(String header) {
-        String allHeaders = response.split("\\r\\n\\r\\n")[0];
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        int c;
 
-        for (String line: allHeaders.split("\\r\\n")
-             ) {
-            if (line.split(": ?")[0].toLowerCase(Locale.ROOT).equals(header.toLowerCase(Locale.ROOT))) {
-                return line.split(": ?")[1];
-            }
+        for (int i = 0; i <contentLength; i++) {
+            c = socket.getInputStream().read();
+            baos.write(c);
         }
-        throw new RuntimeException("Header not found");
+        var test = baos.toString(StandardCharsets.UTF_8);
+        return baos.toString(StandardCharsets.UTF_8);
+
     }
+
+
 }

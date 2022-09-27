@@ -23,4 +23,10 @@ public class HTTPClientTest {
         HTTPClient client = new HTTPClient("httpbin.org", 80, "/html");
         assertEquals("text/html; charset=utf-8", client.getSpecificHeader("Content-Type"));
     }
+
+    @Test
+    void shouldReadBody() throws IOException {
+        HTTPClient client = new HTTPClient("httpbin.org", 80, "/html");
+        assertEquals("text/html; charset=utf-8", client.getBody());
+    }
 }
